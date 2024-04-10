@@ -1,0 +1,18 @@
+<?php
+/**
+ * @copyright ICZ Corporation (http://www.icz.co.jp/)
+ * @license See the LICENCE file
+ * @author <matcha@icz.co.jp>
+ * @version $Id$
+ */
+//DB接続
+Configure::write('DB_SETTING', array(
+	'driver' => 'mysql',
+	'persistent' => false,
+	'host' => '{default_host}',
+	'login' => '{default_login}',
+	'password' => '{default_password}',
+	'database' => '{default_database}',
+	'prefix' => '{default_prefix}',
+	'encoding' => 'utf8',
+));

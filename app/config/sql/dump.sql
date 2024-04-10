@@ -1,0 +1,704 @@
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+--
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `M_POST`
+--
+DROP TABLE IF EXISTS `M_POST`;
+CREATE TABLE IF NOT EXISTS `M_POST` (
+  `POSTCODE` varchar(7) NOT NULL,
+  `CNT_ID` int(2) NOT NULL,
+  `CITY` varchar(255) NOT NULL,
+  `AREA` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_BILL`
+--
+
+CREATE TABLE IF NOT EXISTS `T_BILL` (
+  `MBL_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CST_ID` int(11) NOT NULL,
+  `CHR_ID` int(11) DEFAULT NULL,
+  `CHRC_ID` int(11) DEFAULT NULL,
+  `USR_ID` int(11) NOT NULL DEFAULT '1',
+  `UPDATE_USR_ID` int(11) NOT NULL,
+  `ISSUE_DATE` date DEFAULT NULL,
+  `DUE_DATE` varchar(255) DEFAULT NULL,
+  `SUBJECT` varchar(255) DEFAULT NULL,
+  `HONOR_CODE` int(2) NOT NULL,
+  `HONOR_TITLE` varchar(255) NOT NULL,
+  `CMP_SEAL_FLG` int(2) NOT NULL DEFAULT '1',
+  `CHR_SEAL_FLG` int(2) NOT NULL DEFAULT '1',
+  `NO` varchar(255) DEFAULT NULL,
+  `STATUS` int(2) NOT NULL DEFAULT '0',
+  `MEMO` varchar(255) DEFAULT NULL,
+  `DECIMAL_QUANTITY` int(2) DEFAULT NULL,
+  `DECIMAL_UNITPRICE` int(2) DEFAULT NULL,
+  `EXCISE` int(2) NOT NULL,
+  `FRACTION` int(2) NOT NULL,
+  `TAX_FRACTION` int(2) NOT NULL DEFAULT '1',
+  `TAX_FRACTION_TIMING` int(2) NOT NULL DEFAULT '0',
+  `DISCOUNT` varchar(100) DEFAULT NULL,
+  `DISCOUNT_TYPE` int(2) NOT NULL DEFAULT '0',
+  `FEE` varchar(255) DEFAULT NULL,
+  `NOTE` text,
+  `SUBTOTAL` varchar(100) DEFAULT NULL,
+  `SALES_TAX` varchar(100) DEFAULT NULL,
+  `TOTAL` varchar(100) DEFAULT NULL,
+  `FIVE_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `FIVE_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `EIGHT_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `EIGHT_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `REDUCED_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `REDUCED_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `TEN_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `TEN_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `INSERT_DATE` datetime NOT NULL,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`MBL_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_BILL`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_BILL_ITEM`
+--
+
+CREATE TABLE IF NOT EXISTS `T_BILL_ITEM` (
+  `ITM_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `MBL_ID` int(11) DEFAULT NULL,
+  `ITEM_NO` varchar(10) DEFAULT NULL,
+  `ITEM_CODE` varchar(255) DEFAULT NULL,
+  `ITEM` varchar(255) DEFAULT NULL,
+  `QUANTITY` varchar(100) DEFAULT NULL,
+  `UNIT` varchar(255) DEFAULT NULL,
+  `UNIT_PRICE` varchar(100) DEFAULT NULL,
+  `DISCOUNT` varchar(100) DEFAULT NULL,
+  `DISCOUNT_TYPE` int(2) DEFAULT NULL,
+  `LINE_ATTRIBUTE` int(11) NOT NULL DEFAULT '0',
+  `TAX_CLASS` int(11) NOT NULL DEFAULT '0',
+  `AMOUNT` varchar(100) DEFAULT NULL,
+  `INSERT_DATE` datetime NOT NULL,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`ITM_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_BILL_ITEM`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_CHARGE`
+--
+
+CREATE TABLE IF NOT EXISTS `T_CHARGE` (
+  `CHR_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CMP_ID` int(11) NOT NULL,
+  `USR_ID` int(11) NOT NULL DEFAULT '1',
+  `UPDATE_USR_ID` int(11) NOT NULL,
+  `UNIT` varchar(255) DEFAULT NULL,
+  `POST` varchar(255) DEFAULT NULL,
+  `CHARGE_NAME` varchar(255) NOT NULL,
+  `CHARGE_NAME_KANA` varchar(255) DEFAULT NULL,
+  `MAIL` varchar(255) DEFAULT NULL,
+  `POSTCODE1` varchar(3) NOT NULL,
+  `POSTCODE2` varchar(4) NOT NULL,
+  `CNT_ID` int(2) NOT NULL,
+  `ADDRESS` varchar(255) NOT NULL,
+  `SEARCH_ADDRESS` varchar(255) NOT NULL,
+  `BUILDING` varchar(255) DEFAULT NULL,
+  `PHONE_NO1` varchar(5) DEFAULT NULL,
+  `PHONE_NO2` varchar(4) DEFAULT NULL,
+  `PHONE_NO3` varchar(4) DEFAULT NULL,
+  `FAX_NO1` varchar(4) DEFAULT NULL,
+  `FAX_NO2` varchar(4) DEFAULT NULL,
+  `FAX_NO3` varchar(4) DEFAULT NULL,
+  `STATUS` int(2) NOT NULL DEFAULT '0',
+  `SEAL` mediumblob,
+  `CHR_SEAL_FLG` int(2) NOT NULL DEFAULT '1',
+  `INSERT_DATE` datetime NOT NULL,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`CHR_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_CHARGE`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_COMPANY`
+--
+
+CREATE TABLE IF NOT EXISTS `T_COMPANY` (
+  `CMP_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(255) NOT NULL,
+  `REPRESENTATIVE` varchar(255) DEFAULT NULL,
+  `POSTCODE1` varchar(3) DEFAULT NULL,
+  `POSTCODE2` varchar(4) DEFAULT NULL,
+  `CNT_ID` int(2) DEFAULT NULL,
+  `ADDRESS` varchar(255) DEFAULT NULL,
+  `SEARCH_ADDRESS` varchar(255) NOT NULL,
+  `BUILDING` varchar(255) DEFAULT NULL,
+  `PHONE_NO1` varchar(5) DEFAULT NULL,
+  `PHONE_NO2` varchar(4) DEFAULT NULL,
+  `PHONE_NO3` varchar(4) DEFAULT NULL,
+  `FAX_NO1` varchar(4) DEFAULT NULL,
+  `FAX_NO2` varchar(4) DEFAULT NULL,
+  `FAX_NO3` varchar(4) DEFAULT NULL,
+  `INVOICE_NUMBER` varchar(20) DEFAULT NULL,
+  `HONOR_CODE` int(2) NOT NULL DEFAULT '0',
+  `HONOR_TITLE` varchar(255) NOT NULL DEFAULT '',
+  `CUTOOFF_SELECT` int(2) DEFAULT '0',
+  `CUTOOFF_DATE` int(2) DEFAULT NULL,
+  `PAYMENT_MONTH` int(2) DEFAULT '0',
+  `PAYMENT_SELECT` int(2) DEFAULT '0',
+  `PAYMENT_DAY` int(2) DEFAULT NULL,
+  `EXCISE` int(2) DEFAULT NULL,
+  `FRACTION` int(2) DEFAULT NULL,
+  `TAX_FRACTION` int(2) NOT NULL DEFAULT '1',
+  `TAX_FRACTION_TIMING` int(2) NOT NULL DEFAULT '0',
+  `DECIMAL_QUANTITY` INT( 2 ) NOT NULL DEFAULT  '0',
+  `DECIMAL_UNITPRICE` INT( 2 ) NOT NULL DEFAULT  '0',
+  `SERIAL_NUMBER` int(2) NOT NULL DEFAULT '0',
+  `ACCOUNT_HOLDER` varchar(255) DEFAULT NULL,
+  `BANK_NAME` varchar(255) DEFAULT NULL,
+  `BANK_BRANCH` varchar(255) DEFAULT NULL,
+  `ACCOUNT_TYPE` int(2) DEFAULT NULL,
+  `ACCOUNT_NUMBER` varchar(100) DEFAULT NULL,
+  `SEAL` mediumblob,
+  `CMP_SEAL_FLG` int(2) NOT NULL DEFAULT '1',
+  `COLOR` int(2) NOT NULL DEFAULT '0',
+  `DIRECTION` int(2) NOT NULL DEFAULT '0',
+  `INSERT_DATE` datetime NOT NULL,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`CMP_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_COMPANY`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_CUSTOMER`
+--
+
+CREATE TABLE IF NOT EXISTS `T_CUSTOMER` (
+  `CST_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CMP_ID` int(11) NOT NULL,
+  `USR_ID` int(11) NOT NULL DEFAULT '1',
+  `UPDATE_USR_ID` int(11) NOT NULL,
+  `NAME` varchar(255) NOT NULL,
+  `NAME_KANA` varchar(255) DEFAULT NULL,
+  `POSTCODE1` varchar(3) DEFAULT NULL,
+  `HONOR_CODE` int(2) NOT NULL DEFAULT '0',
+  `HONOR_TITLE` varchar(255) NOT NULL DEFAULT '',
+  `POSTCODE2` varchar(4) DEFAULT NULL,
+  `CNT_ID` int(2) DEFAULT NULL,
+  `ADDRESS` varchar(255) DEFAULT NULL,
+  `SEARCH_ADDRESS` varchar(255) DEFAULT NULL,
+  `BUILDING` varchar(255) DEFAULT NULL,
+  `PHONE_NO1` varchar(5) DEFAULT NULL,
+  `PHONE_NO2` varchar(4) DEFAULT NULL,
+  `PHONE_NO3` varchar(4) DEFAULT NULL,
+  `FAX_NO1` varchar(4) DEFAULT NULL,
+  `FAX_NO2` varchar(4) DEFAULT NULL,
+  `FAX_NO3` varchar(4) DEFAULT NULL,
+  `WEBSITE` varchar(255) DEFAULT NULL,
+  `CUTOOFF_SELECT` int(2) DEFAULT NULL,
+  `CUTOOFF_DATE` int(2) DEFAULT NULL,
+  `PAYMENT_MONTH` int(2) DEFAULT NULL,
+  `PAYMENT_SELECT` int(2) DEFAULT NULL,
+  `PAYMENT_DAY` int(2) DEFAULT NULL,
+  `EXCISE` int(2) DEFAULT NULL,
+  `FRACTION` int(2) DEFAULT NULL,
+  `TAX_FRACTION` int(2) NOT NULL DEFAULT '1',
+  `TAX_FRACTION_TIMING` int(2) NOT NULL DEFAULT '0',
+  `CHR_ID` int(11) DEFAULT NULL,
+  `NOTE` text NOT NULL DEFAULT '',
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`CST_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_CUSTOMER`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_CUSTOMER_CHARGE`
+--
+
+CREATE TABLE IF NOT EXISTS `T_CUSTOMER_CHARGE` (
+  `CHRC_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `USR_ID` int(11) NOT NULL DEFAULT '1',
+  `UPDATE_USR_ID` int(11) NOT NULL,
+  `CST_ID` int(11) NULL,
+  `UNIT` varchar(255) DEFAULT NULL,
+  `POST` varchar(255) DEFAULT NULL,
+  `CHARGE_NAME` varchar(255) NOT NULL,
+  `CHARGE_NAME_KANA` varchar(255) DEFAULT NULL,
+  `MAIL` varchar(255) DEFAULT NULL,
+  `POSTCODE1` varchar(3) DEFAULT NULL,
+  `POSTCODE2` varchar(4) DEFAULT NULL,
+  `CNT_ID` int(2) DEFAULT NULL,
+  `ADDRESS` varchar(255) DEFAULT NULL,
+  `SEARCH_ADDRESS` varchar(255) DEFAULT NULL,
+  `BUILDING` varchar(255) DEFAULT NULL,
+  `PHONE_NO1` varchar(5) DEFAULT NULL,
+  `PHONE_NO2` varchar(4) DEFAULT NULL,
+  `PHONE_NO3` varchar(4) DEFAULT NULL,
+  `FAX_NO1` varchar(4) DEFAULT NULL,
+  `FAX_NO2` varchar(4) DEFAULT NULL,
+  `FAX_NO3` varchar(4) DEFAULT NULL,
+  `STATUS` int(2) NOT NULL DEFAULT '0',
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`CHRC_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_CUSTOMER_CHARGE`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_DELIVERY`
+--
+
+CREATE TABLE IF NOT EXISTS `T_DELIVERY` (
+  `MDV_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CST_ID` int(11) NOT NULL,
+  `CHR_ID` int(11) DEFAULT NULL,
+  `CHRC_ID` int(11) DEFAULT NULL,
+  `USR_ID` int(11) NOT NULL DEFAULT '1',
+  `UPDATE_USR_ID` int(11) NOT NULL,
+  `ISSUE_DATE` date DEFAULT NULL,
+  `SUBJECT` varchar(255) DEFAULT NULL,
+  `HONOR_CODE` int(2) NOT NULL,
+  `HONOR_TITLE` varchar(255) NOT NULL,
+  `CMP_SEAL_FLG` int(2) NOT NULL DEFAULT '1',
+  `CHR_SEAL_FLG` int(2) NOT NULL DEFAULT '1',
+  `NO` varchar(255) NOT NULL,
+  `STATUS` int(2) NOT NULL DEFAULT '0',
+  `MEMO` varchar(255) DEFAULT NULL,
+  `DECIMAL_QUANTITY` int(2) DEFAULT NULL,
+  `DECIMAL_UNITPRICE` int(2) DEFAULT NULL,
+  `EXCISE` int(2) NOT NULL,
+  `FRACTION` int(2) NOT NULL,
+  `TAX_FRACTION` int(2) NOT NULL DEFAULT '1',
+  `TAX_FRACTION_TIMING` int(2) NOT NULL DEFAULT '0',
+  `DISCOUNT` varchar(100) DEFAULT NULL,
+  `DISCOUNT_TYPE` int(2) NOT NULL DEFAULT '0',
+  `DELIVERY` varchar(255) DEFAULT NULL,
+  `NOTE` text,
+  `SUBTOTAL` varchar(100) NOT NULL,
+  `SALES_TAX` varchar(100) NOT NULL,
+  `TOTAL` varchar(100) NOT NULL,
+  `FIVE_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `FIVE_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `EIGHT_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `EIGHT_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `REDUCED_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `REDUCED_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `TEN_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `TEN_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`MDV_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_DELIVERY`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_DELIVERY_ITEM`
+--
+
+CREATE TABLE IF NOT EXISTS `T_DELIVERY_ITEM` (
+  `ITM_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `MDV_ID` int(11) DEFAULT NULL,
+  `ITEM_NO` varchar(10) DEFAULT NULL,
+  `ITEM_CODE` varchar(255) DEFAULT NULL,
+  `ITEM` varchar(255) DEFAULT NULL,
+  `QUANTITY` varchar(100) DEFAULT NULL,
+  `UNIT` varchar(255) DEFAULT NULL,
+  `UNIT_PRICE` varchar(100) DEFAULT NULL,
+  `DISCOUNT` varchar(100) DEFAULT NULL,
+  `DISCOUNT_TYPE` int(2) DEFAULT NULL,
+  `LINE_ATTRIBUTE` int(11) NOT NULL DEFAULT '0',
+  `TAX_CLASS` int(11) NOT NULL DEFAULT '0',
+  `AMOUNT` varchar(100) DEFAULT NULL,
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`ITM_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_DELIVERY_ITEM`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_ITEM`
+--
+
+CREATE TABLE IF NOT EXISTS `T_ITEM` (
+  `ITM_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `USR_ID` int(11) NOT NULL DEFAULT '1',
+  `UPDATE_USR_ID` int(11) NOT NULL,
+  `ITEM` varchar(255) NOT NULL,
+  `ITEM_KANA` varchar(255) NOT NULL,
+  `ITEM_CODE` varchar(255) NOT NULL,
+  `UNIT` varchar(255) NOT NULL,
+  `UNIT_PRICE` varchar(100) NOT NULL,
+  `TAX_CLASS` int(11) NOT NULL DEFAULT '0',
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`ITM_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
+
+--
+-- テーブルのデータをダンプしています `T_ITEM`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_QUOTE`
+--
+
+CREATE TABLE IF NOT EXISTS `T_QUOTE` (
+  `MQT_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CST_ID` int(11) NOT NULL,
+  `CHR_ID` int(11) DEFAULT NULL,
+  `CHRC_ID` int(11) DEFAULT NULL,
+  `USR_ID` int(11) NOT NULL DEFAULT '1',
+  `UPDATE_USR_ID` int(11) NOT NULL,
+  `ISSUE_DATE` date DEFAULT NULL,
+  `DUE_DATE` varchar(255) DEFAULT NULL,
+  `SUBJECT` varchar(255) DEFAULT NULL,
+  `HONOR_CODE` int(2) NOT NULL,
+  `HONOR_TITLE` varchar(255) NOT NULL,
+  `CMP_SEAL_FLG` int(2) NOT NULL DEFAULT '1',
+  `CHR_SEAL_FLG` int(2) NOT NULL DEFAULT '1',
+  `NO` varchar(255) DEFAULT NULL,
+  `STATUS` int(2) NOT NULL DEFAULT '0',
+  `MEMO` varchar(255) DEFAULT NULL,
+  `DECIMAL_QUANTITY` int(2) DEFAULT NULL,
+  `DECIMAL_UNITPRICE` int(2) DEFAULT NULL,
+  `EXCISE` int(2) NOT NULL,
+  `FRACTION` int(2) NOT NULL,
+  `TAX_FRACTION` int(2) NOT NULL DEFAULT '1',
+  `TAX_FRACTION_TIMING` int(2) NOT NULL DEFAULT '0',
+  `DISCOUNT` varchar(100) DEFAULT NULL,
+  `DISCOUNT_TYPE` int(2) NOT NULL DEFAULT '0',
+  `DELIVERY` varchar(255) DEFAULT NULL,
+  `DEADLINE` varchar(255) DEFAULT '',
+  `DEAL` varchar(255) DEFAULT '',
+  `NOTE` text,
+  `SUBTOTAL` varchar(100) DEFAULT NULL,
+  `SALES_TAX` varchar(100) DEFAULT NULL,
+  `TOTAL` varchar(100) DEFAULT NULL,
+  `FIVE_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `FIVE_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `EIGHT_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `EIGHT_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `REDUCED_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `REDUCED_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `TEN_RATE_TAX` VARCHAR(100) DEFAULT NULL,
+  `TEN_RATE_TOTAL` VARCHAR(100) DEFAULT NULL,
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`MQT_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_QUOTE`
+--
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_QUOTE_ITEM`
+--
+
+CREATE TABLE IF NOT EXISTS `T_QUOTE_ITEM` (
+  `ITM_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `MQT_ID` int(11) DEFAULT NULL,
+  `ITEM_NO` varchar(10) DEFAULT NULL,
+  `ITEM_CODE` varchar(255) DEFAULT NULL,
+  `ITEM` varchar(255) DEFAULT NULL,
+  `QUANTITY` varchar(100) DEFAULT NULL,
+  `UNIT` varchar(255) DEFAULT NULL,
+  `UNIT_PRICE` varchar(100) DEFAULT NULL,
+  `LINE_ATTRIBUTE` int(11) NOT NULL DEFAULT '0',
+  `TAX_CLASS` int(11) NOT NULL DEFAULT '0',
+  `DISCOUNT` varchar(100) DEFAULT NULL,
+  `DISCOUNT_TYPE` int(2) DEFAULT NULL,
+  `AMOUNT` varchar(100) DEFAULT NULL,
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`ITM_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_QUOTE_ITEM`
+--
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_USER`
+--
+
+CREATE TABLE IF NOT EXISTS `T_USER` (
+  `USR_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `LOGIN_ID` varchar(100) NOT NULL,
+  `NAME` varchar(255) NOT NULL,
+  `NAME_KANA` varchar(255) DEFAULT NULL,
+  `UNIT` varchar(255) NOT NULL DEFAULT '',
+  `MAIL` varchar(255) NOT NULL,
+  `CMP_ID` int(11) NOT NULL,
+  `PASSWORD` varchar(255) NOT NULL,
+  `RANDOM_KEY` varchar(100) DEFAULT NULL,
+  `AUTHORITY` int(2) NOT NULL DEFAULT '0',
+  `STATUS` int(1) NOT NULL DEFAULT '0',
+  `ADD_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`USR_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_USER`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_HISTORY`
+--
+
+CREATE TABLE IF NOT EXISTS `T_HISTORY` (
+  `HST_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `USR_ID` int(11) NOT NULL,
+  `RPT_ID` int(11) DEFAULT NULL,
+  `ACTION` int(2) NOT NULL,
+  `ACTION_DATE` datetime NOT NULL,
+  `BROWSER` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`HST_ID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+--
+-- テーブルのデータをダンプしています `T_HISTORY`
+--
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_MAIL`
+--
+
+CREATE TABLE IF NOT EXISTS `T_MAIL` (
+  `TML_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FRM_ID` int(11) NOT NULL,
+  `USR_ID` int(11) NOT NULL DEFAULT '1',
+  `RECEIVER` varchar(255) NOT NULL,
+  `SENDER` varchar(255) NOT NULL,
+  `RCV_NAME` varchar(255) NOT NULL,
+  `SND_NAME` varchar(255) NOT NULL,
+  `SUBJECT` varchar(255) NOT NULL,
+  `CUSTOMER` varchar(255) NOT NULL,
+  `SND_MESSAGE` text NOT NULL,
+  `RCV_MESSAGE` text,
+  `STATUS` int(4) NOT NULL DEFAULT '0',
+  `TYPE` int(4) NOT NULL,
+  `TOKEN` varchar(255) DEFAULT NULL,
+  `PASSWORD` varchar(255) NOT NULL,
+  `SND_DATE` datetime NOT NULL,
+  `RCV_DATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`TML_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_CONFIG`
+--
+CREATE TABLE IF NOT EXISTS `T_CONFIG` (
+  `CON_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `HOST` varchar(255) DEFAULT NULL,
+  `SECURITY` int(2) DEFAULT NULL,
+  `PORT` int(6) DEFAULT NULL,
+  `FROM` varchar(255) NOT NULL,
+  `FROM_NAME` varchar(255) NOT NULL,
+  `PROTOCOL` int(2) DEFAULT NULL,
+  `USER` varchar(255) DEFAULT NULL,
+  `PASS` varchar(255) DEFAULT NULL,
+  `STATUS` int(2) NOT NULL,
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`CON_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_OPTION`
+--
+
+CREATE TABLE IF NOT EXISTS `T_OPTION` (
+  `OPTION_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `OPTION_NAME` varchar(255) NOT NULL,
+  `OPTION_NAME_JP` varchar(255) NOT NULL,
+  `OPTION_VALUE` varchar(255) NOT NULL,
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`OPTION_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+INSERT INTO `T_OPTION` (
+`OPTION_ID` ,
+`OPTION_NAME` ,
+`OPTION_NAME_JP` ,
+`OPTION_VALUE` ,
+`INSERT_DATE` ,
+`LAST_UPDATE`
+)
+VALUES (
+NULL ,  'logo',  'タイトルロゴ',  'i_logo.jpg', NOW( ) , NOW( )
+);
+INSERT INTO `T_OPTION` (
+`OPTION_ID` ,
+`OPTION_NAME` ,
+`OPTION_NAME_JP` ,
+`OPTION_VALUE` ,
+`INSERT_DATE` ,
+`LAST_UPDATE`
+)
+VALUES (
+NULL ,  'title',  'ページタイトル',  '抹茶請求書', NOW( ) , NOW( )
+);
+INSERT INTO `T_OPTION` (
+`OPTION_ID` ,
+`OPTION_NAME` ,
+`OPTION_NAME_JP` ,
+`OPTION_VALUE` ,
+`INSERT_DATE` ,
+`LAST_UPDATE`
+)
+VALUES (
+NULL ,  'footer',  'フッター',  'オープンソースの業務ソフト～バックオフィスに安らぎを～', NOW( ) , NOW( )
+);
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_TOTAL_BILL`
+--
+
+CREATE TABLE IF NOT EXISTS `T_TOTAL_BILL` (
+  `TBL_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CST_ID` int(11) NOT NULL,
+  `CHRC_ID` int(11) DEFAULT NULL,
+  `USR_ID` int(11) NOT NULL DEFAULT '1',
+  `UPDATE_USR_ID` int(11) NOT NULL DEFAULT '1',
+  `ISSUE_DATE` date NOT NULL,
+  `DUE_DATE` varchar(255) DEFAULT NULL,
+  `SUBJECT` varchar(255) NOT NULL,
+  `NO` varchar(255) NOT NULL,
+  `HONOR_CODE` int(2) NOT NULL DEFAULT '0',
+  `HONOR_TITLE` varchar(255) NOT NULL DEFAULT '',
+  `LASTM_BILL` varchar(255) DEFAULT NULL,
+  `DEPOSIT` varchar(255) DEFAULT NULL,
+  `CARRY_BILL` varchar(255) DEFAULT NULL,
+  `SALE` varchar(255) DEFAULT NULL,
+  `SALE_TAX` varchar(255) DEFAULT NULL,
+  `THISM_BILL` varchar(255) DEFAULT NULL,
+  `SUBTOTAL` varchar(255) DEFAULT NULL,
+  `EDIT_STAT` tinyint(1) DEFAULT NULL,
+  `STATUS` tinyint(1) DEFAULT NULL,
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`TBL_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_TOTAL_BILLITEM`
+--
+CREATE TABLE IF NOT EXISTS `T_TOTAL_BILLITEM` (
+  `TBLI_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TBL_ID` int(11) NOT NULL,
+  `MBL_ID` int(11) NOT NULL,
+  `INSERT_DATE` datetime,
+  `LAST_UPDATE` datetime,
+  PRIMARY KEY (`TBLI_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `T_SERIAL`
+--
+
+CREATE TABLE IF NOT EXISTS `T_SERIAL` (
+  `FORM_ID` int(2) NOT NULL,
+  `NUMBERING_FORMAT` int(2) NOT NULL,
+  `PREFIX` varchar(255) NOT NULL,
+  `NEXT` varchar(255) NOT NULL,
+  `LAST_UPDATE` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- テーブルのデータをダンプしています `T_SERIAL`
+--
+
+INSERT INTO `T_SERIAL` (`FORM_ID`, `NUMBERING_FORMAT`, `PREFIX`, `NEXT`, `LAST_UPDATE`) VALUES
+(0, 0, 'Q', '1', NOW( )),
+(1, 0, 'D', '1', NOW( )),
+(2, 0, 'B', '1', NOW( )),
+(3, 0, 'T', '1', NOW( )),
+(4, 0, 'R', '1', NOW( ));
