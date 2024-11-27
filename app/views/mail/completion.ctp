@@ -8,9 +8,7 @@
 			<div class="finish_txt">ただいまご指定のアドレスへデータを送信しました。<br />
 			送信先よりコメントが届いた場合については<?php
 		echo $html->link("顧客コメント確認ページ",array('controller' => 'mails', 'action' => 'index'));?>でご確認ください。<br />
-			指定したアドレスへ届いていない場合については、送信先をご確認のうえ、再送ください。
-			パスワードは別途送信してください。<br />
-			<h4 class='h4_mailpass'>パスワード：<?php echo $pass; ?></h4>
+			指定したアドレスへ届いていない場合については、送信先をご確認のうえ、再送ください。<br />
 			</div>
 		</div>
 		<?php echo $html->image('bg_contents_bottom.jpg',array('class'=>'block')); ?>

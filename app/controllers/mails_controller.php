@@ -366,7 +366,7 @@ class MailsController extends AppController
                 } else {
                     // リダイレクト
                     $this->Session->setFlash('メールの送信に失敗しました');
-                    $this->redirect("/mails");
+                    //$this->redirect("/mails");
                 }
                 
                 break;
@@ -430,15 +430,14 @@ class MailsController extends AppController
                     $default .= "\n";
                     $default .= "件名：" . $this->params['data']['Mail']['SUBJECT'] . "\n";
                     $default .= "ダウンロードURL：" . $url . "\n";
+                    $default .= "パスワード：" . $this->params['data']['Mail']['PASSWORD1'] . "\n";
                     $default .= "\n";
                     $default .= "※データのお預かり期間は7日間となりますので、ご注意ください。\n";
                     $default .= "------------------------------------------------------------\n";
                     $default .= "\n";
                     $default .= "※上記URLを押下すると、ダウンロードページへ遷移します。\n";
-                    $default .= "※ダウンロードページにはセキュリティのため、パスワードが設定されていますので、\n";
-                    $default .= "　パスワード入力画面ではあらかじめ送信者様から送られたパスワードをご入力ください。\n";
-                    $default .= "なお、パスワードが送信されていない場合は、送信者様にご連絡ください。\n";
-                    $default .= "\n\n";
+                    $default .= "※ダウンロードページにはセキュリティのため、パスワードをご入力ください。\n";
+                    $default .= "\n";
                     $default .= "本メールは「抹茶請求書」による自動送信メールです。本メールにお心当たりの\n";
                     $default .= "ない場合は、恐れ入りますが、破棄くださいますようお願い申し上げます。";
                     
