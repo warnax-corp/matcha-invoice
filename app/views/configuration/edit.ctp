@@ -89,7 +89,7 @@
 				<tr>
 					<th>SMTPパスワード</th>
 					<td style="width:750px;">
-						<?php echo $form->text('PASS', array('class' => 'w300'.($form->error('PASS')?' error':''),'maxlength'=>30)); ?>
+						<?php echo $form->text('PASS', array('class' => 'w300'.($form->error('PASS')?' error':''),'maxlength'=>90)); ?>
 						<br /><span class="usernavi"><?php echo $usernavi['MAIL_SMTP_PW']; ?></span>
 						<br /><span class="must"><?php echo $form->error('PASS') ; ?></span>
 					</td>

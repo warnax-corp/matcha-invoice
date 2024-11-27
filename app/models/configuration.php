@@ -106,10 +106,10 @@ class Configuration extends AppModel
             )
         ),
         'PASS' => array(
-            "rule0" => array(
-                'rule' => 'idNumber',
-                'message' => '半角英数字以外が含まれます'
-            )
+            //"rule0" => array(
+            //    'rule' => 'idNumber',
+            //    'message' => '半角英数字以外が含まれます'
+            //)
         ),
         'HOST' => array(
             "rule1" => array(
